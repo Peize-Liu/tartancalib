@@ -24,6 +24,7 @@ import signal
 import dill
 import scipy.io
 import random
+import yaml
 
 from tartan_logging import TartanLogging
 
@@ -126,6 +127,7 @@ def parseArgs():
 
     groupTarget = parser.add_argument_group('Calibration target configuration')
     groupTarget.add_argument('--target', dest='targetYaml', help='Calibration target configuration as yaml file', required=True)
+    groupTarget.add_argument('--intrinsic-prarameters', dest='intriParaYaml', help='Intrinsic parameters as yaml file', required=False)
 
     groupImageSync = parser.add_argument_group('Image synchronization')
     groupImageSync.add_argument('--approx-sync', dest='max_delta_approxsync', type=float, default=0.02, help='Time tolerance for approximate image synchronization [s] (default: %(default)s)')
@@ -170,6 +172,7 @@ def parseArgs():
     outputSettings.add_argument('--save_dir', type=str, dest='saveDir',default='/data/', help='All the data will be logged to this directory.')
     outputSettings.add_argument('--log_dest', type=str, dest='logDest',default='log', help='Name (prefix) of log files.')
     outputSettings.add_argument('--debug_image_dir', type=str, dest='debugImageDir', default='', help='Directory for saving debug images for analysis.')
+    
 
     # Print help if no argument is specified
     if len(sys.argv)==1:
@@ -215,7 +218,30 @@ def main():
         except:
             print("[ERROR] Unable to create directory in:{}".format(parsed.debugImageDir))
             raise(OSError)
+        
+    #D2SLAM read cameras intrinsic parameters from yaml file
+    using_intriParaYaml = False
+    projection_prarameters_list = []
+    distortion_prarameters_list = []
 
+    if (parsed.intriParaYaml != ""):
+        prara_fd = open(parsed.intriParaYaml, 'r',encoding="utf-8")
+        para_dict = yaml.load(prara_fd.read())
+        num_cameras = para_dict['camera_numbers']
+        print("cameras in total: ",num_cameras)
+        for i in range(num_cameras):
+            print("camera ",i," intrinsic parameters: ",para_dict['camera_'+str(i)]['intrinsics'])
+            print("camera ",i," distortion parameters: ",para_dict['camera_'+str(i)]['distortion_coeffs'])
+            projection_prarameters_list.append((para_dict['camera_'+str(i)]['intrinsics']))
+            distortion_prarameters_list.append((para_dict['camera_'+str(i)]['distortion_coeffs']))
+        print("Get all cameras intrinsic prarameters")
+        using_intriParaYaml = True
+        projection_prarameters = np.array(projection_prarameters_list)
+        distortion_prarameters = np.array(distortion_prarameters_list)
+        print("projection_prarameters: ",projection_prarameters)
+        print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        print("distortion_prarameters: ",distortion_prarameters)
+    
     # Logging modes (verbosity)
     if parsed.verbose:
         sm.setLoggingLevel(sm.LoggingLevel.Debug)
@@ -289,14 +315,15 @@ def main():
 
             obslist.append(observations)
             #initialize the intrinsics
-            if not cam.initGeometryFromObservations(observations):
-                raise RuntimeError("Could not initialize the intrinsics for camera with topic: {0}. Try to use --verbose and check whether the calibration target extraction is successful.".format(topic))
-
+            if using_intriParaYaml:
+                cam.geometry.projection().setParameters(projection_prarameters[cam_id])
+                cam.geometry.projection().distortion().setParameters(distortion_prarameters[cam_id])
+                print("Using intrinsic parameters from yaml file")
+            else:
+                if not cam.initGeometryFromObservations(observations):
+                    raise RuntimeError("Could not initialize the intrinsics for camera with topic: {0}. Try to use --verbose and check whether the calibration target extraction is successful.".format(topic))
             print("\tProjection initialized to: %s" % cam.geometry.projection().getParameters().flatten())
             print("\tDistortion initialized to: %s" % cam.geometry.projection().distortion().getParameters().flatten())
-
-
-
             cameraList.append(cam)
         else:
             raise RuntimeError( "Unknown camera model: {0}. Try {1}.".format(modelName, list(cameraModels.keys())) )

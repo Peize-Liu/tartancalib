@@ -1,0 +1,35 @@
+#CAM_A 0; CAM_B 1; CAM_C 2; CAM_D 3
+
+camera_numbers: 4
+camera_0:
+  cam_overlaps: []
+  camera_model: omni
+  distortion_coeffs: [-0.20516210220800535, 0.550362834933355, -0.00012468435924457638, 0.0009247267537115192]
+  distortion_model: radtan
+  intrinsics: [2.1276618509930008, 1150.9115211885505, 1151.1241443263782, 607.2806521648967, 354.31620930542715]
+  resolution: [1280, 720]
+  rostopic: /oak_ffc_4p/image_CAM_A/compressed
+camera_1:
+  cam_overlaps: []
+  camera_model: omni
+  distortion_coeffs: [-0.1969933499414561, 0.5143322203722921, 0.00018010267972823414, 4.733099025555826e-05]
+  distortion_model: radtan
+  intrinsics: [2.119448591362088, 1147.1547962745608, 1147.7663079168626, 636.2385457340097, 379.116609167746]
+  resolution: [1280, 720]
+  rostopic: /oak_ffc_4p/image_CAM_B/compressed
+camera_2:
+  cam_overlaps: []
+  camera_model: omni
+  distortion_coeffs: [-0.19976706253684762, 0.5177306922455516, -0.00020964541878263862, -0.0005321717738419085]
+  distortion_model: radtan
+  intrinsics: [2.125370825197884, 1150.1495743488779, 1150.2724902929874, 629.5291905351415, 360.1660726782707]
+  resolution: [1280, 720]
+  rostopic: /oak_ffc_4p/image_CAM_C/compressed
+camera_3:
+  cam_overlaps: []
+  camera_model: omni
+  distortion_coeffs: [-0.2090005653391117, 0.40661689793665307, 0.0006175311562638261, -0.0002800821060808485]
+  distortion_model: radtan
+  intrinsics: [2.0591882534015635, 1123.060775609157, 1123.0955011493566, 634.4236064801671, 349.2297718754059]
+  resolution: [1280, 720]
+  rostopic: /oak_ffc_4p/image_CAM_D/compressed
