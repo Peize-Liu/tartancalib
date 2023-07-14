@@ -318,6 +318,7 @@ def main():
             if using_intriParaYaml:
                 cam.geometry.projection().setParameters(projection_prarameters[cam_id])
                 cam.geometry.projection().distortion().setParameters(distortion_prarameters[cam_id])
+                cam.isGeometryInitialized = True
                 print("Using intrinsic parameters from yaml file")
             else:
                 if not cam.initGeometryFromObservations(observations):

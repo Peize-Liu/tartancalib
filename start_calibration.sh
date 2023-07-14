@@ -1,4 +1,4 @@
-BAG_PATH=/data/omnicam/omni_calibration_CAM_A_B_C_D_1-split.bag
+BAG_PATH=/data/omnicam/omni_calibration_CAMABCD-split.bag
 
 rosrun kalibr tartan_calibrate   --bag $BAG_PATH\
   --target /data/target/april_6x6.yaml\
@@ -10,4 +10,4 @@ rosrun kalibr tartan_calibrate   --bag $BAG_PATH\
   --min-tag-size-autocomplete 2\
   --models omni-radtan omni-radtan omni-radtan omni-radtan\
   --save_dir /data/output \
-  --intrinsic-prarameters /tartancalib_ws/src/tartancalib/intrinsic_parameters_for_test.yaml
+  --intrinsic-prarameters /tartancalib_ws/src/tartancalib/intrinsic_parameters_for_test.yaml\
