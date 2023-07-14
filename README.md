@@ -7,6 +7,15 @@ TartanCalib contributes state-of-the-art calibration for wide-angle lenses, by i
 
 For more information, visit our project page [here](https://tartancalib.com).
 
+## How to use 
+
+This branch is modifed for input cameras' intrinsic parameters and then get extrinsic parameters among input cameras. Please note that, it does not support partially input cameras intrinsic parameters(you have to calibrate all camera individually before you calibrate for extrinsic parameters)
+
+By modify '**start_tartancalib_docker.sh**' you can map your own workspace into container, and then compile '**/tartancalib_ws**'  for using tartancalib
+
+By modify and run '**start_calibration.sh**' you can then start your calibration, the template of cameras' intrinsic parameters yaml is '**intrinsic_parameters_for_test.yaml**'
+
+
 ## Installation
 ### Docker (Preferred)
 To use the Dockerfiles provided in this repository, ensure that you have [Docker](https://docs.docker.com/get-docker/) installed on your system.
@@ -88,8 +97,9 @@ Ubuntu 20
 
 3. Source catkin workspace
         
-        cd ~/tartan_ws && source devel/setup.bash
-
+    
+       cd ~/tartan_ws && source devel/setup.bash
+   
 4. Follow [Usage](#usage) section to get calibrating!
 
 ## Usage
@@ -149,7 +159,7 @@ Below is a table of basic parameters to get TartanCalib running. You will minima
 | debug_image_dir               | Save directory of PNG files for debugging. Must be an existing folder, and debug_image_dir must end with a trailing slash if a folder is specified. Images are saved by default to your workspace folder. (Default: '') |
 
 <br>
-  
+
 Below is a table of advanced parameters if you'd like to have greater control over TartanCalib's algorithm.
 
 | Advanced Parameter | Description |
