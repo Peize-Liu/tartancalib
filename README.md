@@ -15,6 +15,8 @@ By modify '**start_tartancalib_docker.sh**' you can map your own workspace into 
 
 By modify and run '**start_calibration.sh**' you can then start your calibration, the template of cameras' intrinsic parameters yaml is '**intrinsic_parameters_for_test.yaml**'
 
+TODO: Dockerfile based on this branch
+
 
 ## Installation
 ### Docker (Preferred)
