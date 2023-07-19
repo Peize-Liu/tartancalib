@@ -1,3 +1,7 @@
+# TartanCalib with intrinsic parameter input
+This branch is modified from the main-branch. To use this branch, please build tartancalib-docker image first, and then modify start_tartancalib_docker.sh coresponed to your local environment, and build /tartancalib_ws in conatiner. rosrun kalibr tartan_calibrate with parameter --intrinsic-prarameters you input camera intrinsic parameters, please note that the camera-squence you defined in the yaml file should be the same with --topics list.
+
+
 # TartanCalib
 
 [![ROS1 Ubuntu 20.04](https://github.com/ethz-asl/kalibr/actions/workflows/docker_2004_build.yaml/badge.svg)](https://github.com/ethz-asl/kalibr/actions/workflows/docker_2004_build.yaml)
