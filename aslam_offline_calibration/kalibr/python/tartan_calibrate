@@ -127,7 +127,7 @@ def parseArgs():
 
     groupTarget = parser.add_argument_group('Calibration target configuration')
     groupTarget.add_argument('--target', dest='targetYaml', help='Calibration target configuration as yaml file', required=True)
-    groupTarget.add_argument('--intrinsic-prarameters', dest='intriParaYaml', help='Intrinsic parameters as yaml file', required=False)
+    groupTarget.add_argument('--intrinsic-prarameters', dest='intriParaYaml',default='', help='Intrinsic parameters as yaml file', required=False)
 
     groupImageSync = parser.add_argument_group('Image synchronization')
     groupImageSync.add_argument('--approx-sync', dest='max_delta_approxsync', type=float, default=0.02, help='Time tolerance for approximate image synchronization [s] (default: %(default)s)')
