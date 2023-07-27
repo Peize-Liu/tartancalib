@@ -1,6 +1,37 @@
 # TartanCalib with intrinsic parameter input
 This branch is modified from the main-branch. To use this branch, please build tartancalib-docker image first, and then modify start_tartancalib_docker.sh coresponed to your local environment, and build /tartancalib_ws in conatiner. rosrun kalibr tartan_calibrate with parameter --intrinsic-prarameters you input camera intrinsic parameters, please note that the camera-squence you defined in the yaml file should be the same with --topics list.
 
+## How to build image
+
+```shell
+git clone https://github.com/castacks/tartancalib
+cd tartancalib
+docker build -t tartancalib -f Dockerfile_ros1_20_04 .
+```
+
+##  How to use 
+
+To start docker container please refer to `start_tartancalib_docker.sh` and modify dir_path for your local environment
+
+`start_tatancalib_docker.sh [Option]` 
+
+1. with [option] = 0, you can use the container for application (anything you do will not be saved)
+2. with [option] =1, you can modify files on the host for development (everything you modify will be mapped into the container).
+
+------
+
+`start_calibration.sh` : refer to this file, you will now how to run tartancalib with input intrinsic parameters
+
+
+
+
+
+----
+
+----
+
+
+
 
 # TartanCalib
 
@@ -103,7 +134,7 @@ Ubuntu 20
 
 3. Source catkin workspace
         
-    
+   
        cd ~/tartan_ws && source devel/setup.bash
    
 4. Follow [Usage](#usage) section to get calibrating!
